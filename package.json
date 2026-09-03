@@ -168,16 +168,24 @@
     },
     "linux": {
       "target": [
-        "AppImage",
-        "zip",
+        "flatpak",
         "deb",
-        "rpm"
+        "AppImage",
+        "zip"
       ],
       "maintainer": "Nayam Amarshe <simplelogin-newsletter.j1zez@aleeas.com>",
       "category": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
       "synopsis": "AI Image Upscaler",
       "description": "Free and Open Source AI Image Upscaler",
-      "icon": "resources/icons/"
+      "icon": "resources/icons/",
+      "desktop": {
+        "Name": "Upscayl",
+        "Comment": "AI Image Upscaler",
+        "Type": "Application",
+        "Categories": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
+        "StartupNotify": "false",
+        "MimeType": "image/png:image/jpeg:image/webp;"
+      }
     },
     "win": {
       "publisherName": "Upscayl Team",
@@ -192,6 +200,9 @@
       "oneClick": false,
       "allowElevation": true,
       "perMachine": true
+    },
+    "flatpak": {
+      "branch": "stable"
     },
     "files": [
       "export",
@@ -214,7 +225,7 @@
     "cross-env": "^7.0.3",
     "daisyui": "^4.12.24",
     "electron": "^33.4.11",
-    "electron-builder": "^25.1.8",
+    "electron-builder": "^26.1.0",
     "eslint-config-next": "^14.2.35",
     "exiftool-vendored": "^29.3.0",
     "firebase": "^11.10.0",

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Upscayl
+Comment=AI Image Upscaler
+Exec=upscayl %U
+Icon=org.upscayl.Upscayl
+Type=Application
+Categories=Graphics;2DGraphics;RasterGraphics;ImageProcessing;
+StartupNotify=false
+MimeType=image/png:image/jpeg:image/webp;
+X-Flatpak=org.upscayl.Upscayl

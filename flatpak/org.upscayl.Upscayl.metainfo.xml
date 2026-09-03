@@ -13,8 +13,21 @@
 
   <description>
     <p>
-      Upscayl is a free and open source AI Image Upscaler.
+      Upscayl is a free and open source AI Image Upscaler. It uses advanced
+      machine learning models to upscale images beyond their original
+      resolution, making them look sharper and more detailed.
     </p>
+    <p>
+      Features:
+    </p>
+    <ul>
+      <li>Upscale images up to 16x their original size</li>
+      <li>Multiple AI models for different use cases (photos, anime, etc.)</li>
+      <li>Batch processing for multiple images</li>
+      <li>Custom model support</li>
+      <li>Real-time preview of upscaling results</li>
+      <li>Support for PNG, JPEG, and WebP formats</li>
+    </ul>
   </description>
 
   <content_rating type="oars-1.1" />
@@ -49,6 +62,11 @@
   </screenshots>
 
   <releases>
+    <release version="2.15.0" date="2026-09-02">
+      <description>
+        <p>Regular maintenance release with updated dependencies and bug fixes.</p>
+      </description>
+    </release>
     <release version="v2.9.1" date="2023-10-28">
       <description>
         <p>Changes</p>
