@@ -9,11 +9,12 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3.5.0
+      - uses: volta-cli/action@v4
         with:
-          node-version: 18
+          node-version: 22.13.0
+          npm-version: latest
 
       - name: Install Modules and Build
         run: |
@@ -23,7 +24,7 @@ jobs:
       # Get the latest release
       - name: Get Latest Release
         id: get_latest_release
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const latestRelease = await github.rest.repos.getLatestRelease({
@@ -33,17 +34,16 @@ jobs:
             core.setOutput('release_id', latestRelease.data.id);
 
       - name: Upload Assets to Release
-        uses: svenstaro/upload-release-action@v2
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: |
+          files: |
             dist/*.blockmap
             dist/*.zip
             dist/*.exe
             dist/*.yml
 
       - name: Upload Windows Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-build
           path: |

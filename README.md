@@ -86,7 +86,7 @@ Enlarge images without losing quality. It's almost like magic! 🎩🪄
     <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" height="50px"/>
   </a>
 
-  <a href="https://appimage.github.io/Upscayl/">
+  <a href="https://github.com/upscayl/upscayl/releases/latest">
     <img src="https://user-images.githubusercontent.com/25067102/191270389-9de37c0f-39a8-41f1-a659-8dd4e7b8ac28.png" height="50px"/>
   </a>
 
@@ -94,23 +94,23 @@ Enlarge images without losing quality. It's almost like magic! 🎩🪄
     <img src="https://user-images.githubusercontent.com/25067102/191269445-87050a77-c304-4284-9ea0-699721309c59.png" height="50px"/>
   </a>
 
-  <a href="https://snapcraft.io/upscayl/">
-    <img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" height="50px"/>
-  </a>
-
   <a href="https://github.com/MrPenguin07/ebuilds">
     <img src="https://github.com/upscayl/upscayl/assets/25067102/322aebc5-91aa-4fc6-ac3a-d5a054449554" height="50px"/>
   </a>
 
-Upscayl should be available on the software listings of most Linux operating systems. Your distro's Store app might also support the [Flatpak](https://flatpak.org/setup) or Snap version.
+Upscayl is available on Flathub as the recommended Linux installation method. GitHub Releases also provide AppImage, DEB (Debian/Ubuntu), RPM (Fedora), and ZIP (any x86 Linux) formats.
 
-### 💼 Portable Method
+### 💼 Portable Method (AppImage)
 
 1. Go to [releases section](https://github.com/upscayl/upscayl/releases/latest) or [our official website](https://upscayl.org/).
 2. Download the `upscayl-x.x.x-linux.AppImage` file.
-3. Right Click AppImage -> Go to Permissions tab -> Check 'allow file to execute' and then double click the file to run Upscayl.
+3. Right Click AppImage → Go to Permissions tab → Check 'allow file to execute' and then double click the file to run Upscayl.
 
-*You can also choose to install using other formats like RPM (Fedora), DEB (Debian/Ubuntu based), and ZIP (Any x86 Linux OS).*
+### 📦 Package Managers
+
+- **DEB (Debian/Ubuntu):** Download `upscayl-x.x.x-linux.deb` from releases and run `sudo dpkg -i upscayl-*.deb`
+- **RPM (Fedora/RHEL):** Download `upscayl-x.x.x-linux.rpm` from releases and run `sudo rpm -i upscayl-*.rpm`
+- **ZIP:** Download `upscayl-x.x.x-linux.zip` and extract, then run the `upscayl` binary
 
 ## 🍎 macOS
 (MacOS 12 and later)
@@ -161,21 +161,26 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 # 🛠 Development
 
-I recommend using Volta: https://volta.sh for installing Node.js.
-Download and install volta, then do: `volta install node`.
+Upscayl uses Node.js 22 (managed via [Volta](https://volta.sh)). Install Volta first, then let it handle the rest.
+
+## 🏗 Prerequisites
+
+- [Volta](https://volta.sh) — manages Node.js and npm versions automatically
+- [Git](https://git-scm.com/downloads)
+- **Linux:** `build-essential`, `libgtk-3-dev`, `libwebkit2gtk-4.1-dev`, `libappindicator3-dev`, `rpm`, `libX11-dev`, `libgl1-mesa-glx`, `libnss3`, `libatk-bridge2.0-0`, `libdrm2`, `libxcomposite1`, `libxdamage1`, `libxrandr6`, `libgbm1`, `libpango-1.0-0`, `libcairo2`, `libasound2`
+- **macOS:** Xcode Command Line Tools
+- **Windows:** Visual Studio Build Tools (C++ workload)
 
 ## 🏃 Running
-> [!NOTE]
-> If you are not willing to install [git](https://git-scm.com/downloads), you can skip the first line, download [the source zip](https://github.com/upscayl/upscayl/archive/refs/heads/main.zip) and extract it to `upscayl` instead and carry on with the rest of the instructions.
 
 ```sh
 git clone https://github.com/upscayl/upscayl
 cd upscayl
 
-# INSTALL DEPENDENCIES
+# INSTALL DEPENDENCIES (Volta installs Node 22 automatically)
 npm install
 
-# RUN THE DEVELOPMENT SERVER LOCALLY
+# RUN THE DEVELOPMENT SERVER
 ## YOUR LOGS WILL NOW APPEAR IN THE TERMINAL
 npm run start
 ```
@@ -186,12 +191,25 @@ npm run start
 # INSTALL DEPENDENCIES
 npm install
 
-# PACKAGE THE APP
+# PACKAGE THE APP (builds for all platforms)
 npm run dist
 
 # PUBLISH THE APP, MAKE SURE TO ADD GH_TOKEN= IN SHELL
 # ONLY DO THIS IF YOU'RE A MAINTAINER
 npm run publish-app
+```
+
+### Building for Specific Platforms
+
+```sh
+# Linux (Flatpak, DEB, AppImage, ZIP)
+npm run dist:linux
+
+# macOS (Universal DMG)
+npm run dist:mac
+
+# Windows (NSIS Installer)
+npm run dist:win
 ```
 
 # 🤓 FAQ

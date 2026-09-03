@@ -184,6 +184,7 @@
         "Type": "Application",
         "Categories": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
         "StartupNotify": "false",
+        "StartupWMClass": "Upscayl",
         "MimeType": "image/png:image/jpeg:image/webp;"
       }
     },
@@ -225,13 +226,13 @@
     "cross-env": "^7.0.3",
     "daisyui": "^4.12.24",
     "electron": "^33.4.11",
-    "electron-builder": "^26.1.0",
+    "electron-builder": "^26.15.3",
     "eslint-config-next": "^14.2.35",
     "exiftool-vendored": "^29.3.0",
     "firebase": "^11.10.0",
     "lucide-react": "^0.469.0",
     "next": "^15.5.25",
-    "postcss": "^8.5.26",
+    "postcss": "^8.5.28",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "react": "^18.3.1",
@@ -251,7 +252,7 @@
     "dotenv": "^17.4.2",
     "electron-is-dev": "^3.0.1",
     "electron-log": "^5.4.4",
-    "electron-settings": "^4.0.4",
+    "electron-settings": "^5.0.0",
     "electron-updater": "^6.8.9",
     "gray-matter": "^4.0.3",
     "jotai": "^2.20.3",
@@ -275,6 +276,7 @@
     "core-js@3.50.0": true,
     "electron@33.4.11": true,
     "protobufjs@7.6.6": true,
-    "@firebase/util@1.12.1": true
+    "@firebase/util@1.12.1": true,
+    "electron-winstaller@5.4.0": true
   }
 }
