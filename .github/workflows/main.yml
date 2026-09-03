@@ -9,9 +9,9 @@ jobs:
   linux:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: volta-cli/action@v4
+      - uses: volta-cli/action@v5
         with:
           node-version: 24.20.0
           npm-version: latest
@@ -39,9 +39,9 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PROVISION_PROFILE: ${{ secrets.PROVISION_PROFILE }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: volta-cli/action@v4
+      - uses: volta-cli/action@v5
         with:
           node-version: 24.20.0
           npm-version: latest
@@ -58,9 +58,9 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: volta-cli/action@v4
+      - uses: volta-cli/action@v5
         with:
           node-version: 24.20.0
           npm-version: latest
