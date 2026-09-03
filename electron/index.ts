@@ -1,4 +1,3 @@
-import prepareNext from "electron-next";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log";
 import { app, ipcMain, protocol } from "electron";
@@ -21,14 +20,60 @@ import { FEATURE_FLAGS } from "../common/feature-flags";
 import settings from "electron-settings";
 import pasteImage from "./commands/paste-image";
 import path from "path";
+import { ChildProcess, spawn } from "child_process";
+
+const rendererDevServerUrl = "http://localhost:8000";
+let rendererDevServer: ChildProcess | undefined;
+
+const startRendererDevServer = async () => {
+  if (!electronIsDev) return;
+
+  const nextCli = require.resolve("next/dist/bin/next");
+  rendererDevServer = spawn(
+    process.execPath,
+    [nextCli, "dev", "renderer", "--port", "8000"],
+    {
+      env: { ...process.env, ELECTRON_RUN_AS_NODE: "1" },
+      stdio: "inherit",
+    },
+  );
+
+  rendererDevServer.once("error", (error) => {
+    log.error("Unable to start the Next.js development server", error);
+  });
+
+  await new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error(`Renderer did not start at ${rendererDevServerUrl}`));
+    }, 30_000);
+
+    const waitForServer = async () => {
+      try {
+        const response = await fetch(rendererDevServerUrl);
+        if (response.ok) {
+          clearTimeout(timeout);
+          resolve();
+          return;
+        }
+      } catch {
+        // The Next.js server is still starting.
+      }
+
+      setTimeout(waitForServer, 250);
+    };
+
+    void waitForServer();
+  });
+};
 
 // INITIALIZATION
 log.initialize({ preload: true });
 
-app.on("ready", async () => {
-  await prepareNext("./renderer");
+void app
+  .whenReady()
+  .then(async () => {
+    await startRendererDevServer();
 
-  app.whenReady().then(() => {
     protocol.registerFileProtocol("file", (request, callback) => {
       const pathname = decodeURI(request.url.replace("file:///", ""));
       callback(pathname);
@@ -38,40 +83,44 @@ app.on("ready", async () => {
       const asarPath = path.join(
         app.getAppPath(),
         "renderer",
-        process.env.NODE_ENV === "development" ? "public" : "out",
+        electronIsDev ? "public" : "out",
         filePath,
       );
       callback(asarPath);
     });
     logit("🚃 App Path: ", app.getAppPath());
-  });
 
-  createMainWindow();
+    createMainWindow();
 
-  log.info(
-    "🆙 Upscayl version:",
-    app.getVersion(),
-    FEATURE_FLAGS.APP_STORE_BUILD ? "MAC-APP-STORE" : "FOSS",
-  );
-  log.info("🚀 UPSCAYL EXEC PATH: ", execPath);
-  log.info("🚀 MODELS PATH: ", modelsPath);
+    log.info(
+      "🆙 Upscayl version:",
+      app.getVersion(),
+      FEATURE_FLAGS.APP_STORE_BUILD ? "MAC-APP-STORE" : "FOSS",
+    );
+    log.info("🚀 UPSCAYL EXEC PATH: ", execPath);
+    log.info("🚀 MODELS PATH: ", modelsPath);
 
-  let closeAccess;
-  const folderBookmarks = await settings.get("folder-bookmarks");
-  if (FEATURE_FLAGS.APP_STORE_BUILD && folderBookmarks) {
-    logit("🚨 Folder Bookmarks: ", folderBookmarks);
-    try {
-      closeAccess = app.startAccessingSecurityScopedResource(
-        folderBookmarks as string,
-      );
-    } catch (error) {
-      logit("📁 Folder Bookmarks Error: ", error);
+    let closeAccess;
+    const folderBookmarks = await settings.get("folder-bookmarks");
+    if (FEATURE_FLAGS.APP_STORE_BUILD && folderBookmarks) {
+      logit("🚨 Folder Bookmarks: ", folderBookmarks);
+      try {
+        closeAccess = app.startAccessingSecurityScopedResource(
+          folderBookmarks as string,
+        );
+      } catch (error) {
+        logit("📁 Folder Bookmarks Error: ", error);
+      }
     }
-  }
-});
+  })
+  .catch((error) => {
+    log.error("Unable to initialize the application", error);
+    app.quit();
+  });
 
 // Quit the app once all windows are closed
 app.on("window-all-closed", () => {
+  rendererDevServer?.kill();
   app.quit();
 });
 

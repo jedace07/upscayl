@@ -251,7 +251,6 @@
     "dotenv": "^17.4.2",
     "electron-is-dev": "^3.0.1",
     "electron-log": "^5.4.4",
-    "electron-next": "^3.1.5",
     "electron-settings": "^4.0.4",
     "electron-updater": "^6.8.9",
     "gray-matter": "^4.0.3",
@@ -269,7 +268,7 @@
     "theme-change": "^3.0.4"
   },
   "volta": {
-    "node": "18.20.5"
+    "node": "22.13.0"
   },
   "allowScripts": {
     "sharp@0.33.5": true,
