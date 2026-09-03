@@ -13,7 +13,7 @@ jobs:
 
       - uses: volta-cli/action@v4
         with:
-          node-version: 22.13.0
+          node-version: 24.20.0
           npm-version: latest
 
       - name: Install Modules and Build

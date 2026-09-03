@@ -161,7 +161,7 @@ You can track all the progress here: https://github.com/orgs/upscayl/projects/1
 
 # 🛠 Development
 
-Upscayl uses Node.js 22 (managed via [Volta](https://volta.sh)). Install Volta first, then let it handle the rest.
+Upscayl uses Node.js 24 (managed via [Volta](https://volta.sh)). Install Volta first, then let it handle the rest.
 
 ## 🏗 Prerequisites
 

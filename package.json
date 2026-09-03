@@ -269,7 +269,7 @@
     "theme-change": "^3.0.4"
   },
   "volta": {
-    "node": "22.13.0"
+    "node": "24.20.0"
   },
   "allowScripts": {
     "sharp@0.33.5": true,
