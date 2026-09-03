@@ -25,10 +25,7 @@ jobs:
         run: |
           npm install
           rm -rf node_modules/sharp
-          npm config set arch x64
-          npm config set platform linux
-          npm config set libc glibc
-          npm install --build-from-source sharp
+          npm_config_cpu=x64 npm_config_os=linux npm install sharp
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
@@ -54,12 +51,8 @@ jobs:
           npm install
           rm -rf node_modules/sharp
           echo -n "$PROVISION_PROFILE" | base64 --decode > embedded.provisionprofile
-          npm config set platform darwin
-          npm config set arch x64
-          npm install --build-from-source sharp
-          npm config set platform darwin
-          npm config set arch arm64
-          npm install --build-from-source sharp
+          npm_config_cpu=x64 npm_config_os=darwin npm install sharp
+          npm_config_cpu=arm64 npm_config_os=darwin npm rebuild sharp
           npm run publish-mac-universal-app
 
   windows:
