@@ -103,6 +103,17 @@
         "to": "resources/512x512.png"
       }
     ],
+    "files": [
+      "export",
+      "renderer/out",
+      "resources",
+      "notarize.js",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "resources",
+      "output": "dist"
+    },
     "mas": {
       "hardenedRuntime": false,
       "electronLanguages": [
@@ -210,10 +221,6 @@
       "runtimeVersion": "25.08",
       "baseVersion": "25.08"
     },
-    "files": [
-      "export",
-      "renderer/out"
-    ],
     "publish": {
       "provider": "github",
       "owner": "upscayl",
