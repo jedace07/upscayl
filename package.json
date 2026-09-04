@@ -152,7 +152,7 @@
       ]
     },
     "dmg": {
-      "sign": "false",
+      "sign": false,
       "contents": [
         {
           "x": 130,
@@ -179,17 +179,21 @@
       "description": "Free and Open Source AI Image Upscaler",
       "icon": "resources/icons/",
       "desktop": {
-        "Name": "Upscayl",
-        "Comment": "AI Image Upscaler",
-        "Type": "Application",
-        "Categories": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
-        "StartupNotify": "false",
-        "StartupWMClass": "Upscayl",
-        "MimeType": "image/png:image/jpeg:image/webp;"
+        "entry": {
+          "Name": "Upscayl",
+          "Comment": "AI Image Upscaler",
+          "Type": "Application",
+          "Categories": "Graphics;2DGraphics;RasterGraphics;ImageProcessing;",
+          "StartupNotify": "false",
+          "StartupWMClass": "Upscayl",
+          "MimeType": "image/png:image/jpeg:image/webp;"
+        }
       }
     },
     "win": {
-      "publisherName": "Upscayl Team",
+      "signtoolOptions": {
+        "publisherName": "Upscayl Team"
+      },
       "target": [
         "nsis",
         "zip"
