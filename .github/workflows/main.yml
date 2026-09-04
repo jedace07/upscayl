@@ -39,7 +39,6 @@ jobs:
       APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
       TEAMID: ${{ secrets.TEAMID }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      PROVISION_PROFILE: ${{ secrets.PROVISION_PROFILE }}
     steps:
       - uses: actions/checkout@v7
 
@@ -51,7 +50,6 @@ jobs:
       - name: Install Modules and Publish Build
         run: |
           npm install
-          echo -n "$PROVISION_PROFILE" | base64 --decode > embedded.provisionprofile
           npm run publish-mac-universal-app
 
   windows:
