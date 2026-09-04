@@ -1,3 +1,5 @@
+name: Deploy Release
+
 # Deploy Release workflow
 # Builds and publishes Linux, macOS, and Windows binaries on tag push or manual trigger
 on:
@@ -19,13 +21,13 @@ jobs:
       - name: Install Linux Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y elfutils rpm libsecret-1-dev
+          sudo apt-get install -y elfutils rpm flatpak flatpak-builder libsecret-1-dev
+          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak install --user --noninteractive flathub org.freedesktop.Sdk//25.08 org.freedesktop.Platform//25.08 org.electronjs.Electron2.BaseApp//25.08
 
       - name: Install Modules and Publish Build
         run: |
           npm install
-          rm -rf node_modules/sharp
-          npm_config_cpu=x64 npm_config_os=linux npm install sharp
           GH_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run publish-linux-app
 
   macos:
@@ -49,10 +51,7 @@ jobs:
       - name: Install Modules and Publish Build
         run: |
           npm install
-          rm -rf node_modules/sharp
           echo -n "$PROVISION_PROFILE" | base64 --decode > embedded.provisionprofile
-          npm_config_cpu=x64 npm_config_os=darwin npm install sharp
-          npm_config_cpu=arm64 npm_config_os=darwin npm rebuild sharp
           npm run publish-mac-universal-app
 
   windows:

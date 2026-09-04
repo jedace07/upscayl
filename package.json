@@ -207,7 +207,9 @@
       "perMachine": true
     },
     "flatpak": {
-      "branch": "stable"
+      "branch": "stable",
+      "runtimeVersion": "25.08",
+      "baseVersion": "25.08"
     },
     "files": [
       "export",
